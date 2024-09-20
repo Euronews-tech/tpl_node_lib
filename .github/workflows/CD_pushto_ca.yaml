@@ -1,0 +1,29 @@
+name: CD - Push to Code Artifact
+run-name: Push new release of ${{ vars.PROJECTNAME }}
+on:
+    workflow_dispatch:
+        inputs:
+            versiontags:
+                type: string
+                required: true
+            nodeversion:
+                type: string
+                required: true
+
+env:
+    working-directory: .
+permissions:
+    checks: write
+    id-token: write # This is required for requesting the JWT
+    contents: read # This is required for actions/checkout
+    pull-requests: write
+
+jobs:
+    pushtoCA:
+        name: Push to
+        uses: Euronews-tech/tpl_github_action/.github/workflows/CD_CA_deploy.yaml@11.0.0
+        with:
+            versiontags: ${{ github.event.inputs.versiontags }}
+            nodeversion: ${{ github.event.inputs.nodeversion }}
+        secrets:
+            SSHKEY: ${{ secrets.SSHKEY }}
