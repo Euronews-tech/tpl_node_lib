@@ -1,0 +1,28 @@
+name: CI -  Quality Test
+run-name: CI - Quality tests for ${{ vars.PROJECTNAME }}
+on:
+    pull_request:
+        types:
+            - labeled
+
+env:
+    working-directory: .
+permissions:
+    checks: write
+    id-token: write # This is required for requesting the JWT
+    contents: read # This is required for actions/checkout
+    pull-requests: write
+
+jobs:
+    klitest:
+        if: github.event.label.name == 'ci-test'
+        name: Quality test for
+        uses: Euronews-tech/tpl_github_action/.github/workflows/CI_Node_unit-test.yaml@4.3.0
+        with:
+            nodeversion: 18
+            ifcodeart: true
+            iflint: true
+            working-directory: .
+            runnertype: 16g
+        secrets:
+            SSHKEY: ${{ secrets.SSHKEY }}

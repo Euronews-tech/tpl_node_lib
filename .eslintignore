@@ -1,0 +1,28 @@
+# Ignore artifacts:
+node_modules
+dist
+coverage
+
+# Ignore all files
+*
+
+# Except js, ts, and json in src and subfolders
+!src/
+!src/**/
+!src/**/*.js
+!src/**/*.ts
+!src/**/*.json
+
+# Except js, ts, and json in test and subfolders
+!test/
+!test/**/
+!test/**/*.js
+!test/**/*.ts
+!test/**/*.json
+
+# Except ts in scripts
+!scripts/
+!scripts/*.ts
+
+# Ignore these files
+typings.d.ts
